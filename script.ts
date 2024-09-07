@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const workExperienceContainer = document.getElementById('work-experience-container') as HTMLElement;
     const addEducationButton = document.getElementById('add-education') as HTMLButtonElement;
     const addWorkExperienceButton = document.getElementById('add-work-experience') as HTMLButtonElement;
+    const resumeImage = document.getElementById('resume-image') as HTMLImageElement;
+    const resumeImageUpload = document.getElementById('resume-image-upload') as HTMLInputElement;
+    
 
     addEducationButton.addEventListener('click', () => {
         const newEducationEntry = document.createElement('div');
@@ -32,10 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = (document.getElementById('name') as HTMLInputElement).value.trim();
         const email = (document.getElementById('email') as HTMLInputElement).value.trim();
         const skills = (document.getElementById('skills') as HTMLInputElement).value.trim();
-
         const educationElements = document.querySelectorAll('.education') as NodeListOf<HTMLInputElement>;
         const educationList = Array.from(educationElements).map(input => input.value.trim());
-
         const workExperienceElements = document.querySelectorAll('.work-experience') as NodeListOf<HTMLInputElement>;
         const workExperienceList = Array.from(workExperienceElements).map(input => input.value.trim());
 
@@ -65,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Update resume section
         (document.getElementById('resume-name') as HTMLElement).innerText = name;
         (document.getElementById('resume-email') as HTMLElement).innerText = email;
 
@@ -91,6 +93,19 @@ document.addEventListener('DOMContentLoaded', () => {
             li.innerText = skill.trim();
             skillsList.appendChild(li);
         });
+        // Handle image upload
+        const imageInput = document.getElementById('image') as HTMLInputElement;
+        const resumeImage = document.getElementById('resume-image') as HTMLImageElement;
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                resumeImage.src = e.target?.result as string;
+                resumeImage.style.display = 'block';
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        } else {
+            resumeImage.style.display = 'none';
+        }
 
         resumeSection.style.display = 'block';
     });
@@ -99,6 +114,41 @@ document.addEventListener('DOMContentLoaded', () => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(email);
     }
+
+    resumeImage.addEventListener('click', () => {
+        resumeImageUpload.click();
+    });
+
+    resumeImageUpload.addEventListener('change', (event) => {
+        const file = (event.target as HTMLInputElement).files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                resumeImage.src = e.target?.result as string;
+                resumeImage.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    const editableElements = document.querySelectorAll('[contenteditable="true"]') as NodeListOf<HTMLElement>;
+
+    editableElements.forEach(element => {
+        element.addEventListener('input', () => {
+            // Save the content to local storage or a variable
+            localStorage.setItem(element.id, element.innerText);
+        });
+    });
+
+    // Load saved content on page load
+    editableElements.forEach(element => {
+        const savedContent = localStorage.getItem(element.id);
+        if (savedContent) {
+            element.innerText = savedContent;
+        }
+    });
+    
 });
+
 
 
