@@ -19,6 +19,8 @@
             <input type="text" id="name" name="name" required>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" name="image" accept="image/*">
             
             <h2>Education</h2>
             <label for="education">Education:</label>
@@ -37,6 +39,7 @@
     </section>
     <section id="resume-section" style="display:none;">
         <header>
+            <img id="resume-image" src="" alt="Profile Image" style="display:none;">
             <h1 id="resume-name"></h1>
             <p id="resume-email"></p>
         </header>
@@ -56,3 +59,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
