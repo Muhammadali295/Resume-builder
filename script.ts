@@ -29,6 +29,40 @@ document.addEventListener('DOMContentLoaded', () => {
         workExperienceContainer.appendChild(newWorkExperienceEntry);
     });
 
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+    
+        const name = (document.getElementById('name') as HTMLInputElement).value.trim();
+        const username = name.toLowerCase().replace(/\s+/g, ''); // Example username generation
+    
+        try {
+            const response = await fetch('http://localhost:3000/api/generate-url', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username }),
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+            const uniqueUrl = data.url;
+    
+            // Display the unique URL
+            const urlDisplay = document.createElement('p');
+            urlDisplay.innerText = `Your unique resume URL: ${uniqueUrl}`;
+            document.body.appendChild(urlDisplay);
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to generate URL. Please try again.');
+        }
+    });
+
+
+
     form.addEventListener('submit', (event) => {
         event.preventDefault();
 

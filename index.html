@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <section id="form-section">
@@ -59,6 +60,34 @@
             <h2><i class="fas fa-code"></i> Skills</h2>
             <ul id="resume-skills-list" contenteditable="true"></ul>
         </section>
+        <button id="copy-url">Copy URL</button>
+        <button id="download-pdf">Download as PDF</button>
+<script>
+document.getElementById('copy-url').addEventListener('click', () => {
+    const url = document.querySelector('p').innerText.split(': ')[1];
+    navigator.clipboard.writeText(url).then(() => {
+        alert('URL copied to clipboard');
+    });
+});
+document.getElementById('download-pdf').addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const name = document.getElementById('resume-name').innerText;
+    const email = document.getElementById('resume-email').innerText;
+    const education = document.getElementById('resume-education-content').innerText;
+    const workExperience = document.getElementById('resume-work-experience-content').innerText;
+    const skills = document.getElementById('resume-skills-list').innerText;
+
+    doc.text(`Name: ${name}`, 10, 10);
+    doc.text(`Email: ${email}`, 10, 20);
+    doc.text(`Education: ${education}`, 10, 30);
+    doc.text(`Work Experience: ${workExperience}`, 10, 40);
+    doc.text(`Skills: ${skills}`, 10, 50);
+
+    doc.save('resume.pdf');
+});
+</script>
     </section>
     <script src="script.js"></script>
 </body>
