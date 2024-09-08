@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, fetch('https://resume-builder-2qwij5y0u-muhammad-alis-projects-5543e715.vercel.app', {
+                    return [4 /*yield*/, fetch('https://resume-builder-2qwij5y0u-muhammad-alis-projects-5543e715.vercel.app/', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
