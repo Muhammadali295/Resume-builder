@@ -11,7 +11,7 @@ router.post('/generate-url', (req, res) => {
         return res.status(400).json({ error: 'Username is required' });
     }
 
-    const uniqueUrl = `https://${username}.vercel.app/resume`;
+    const uniqueUrl = `https://${username}.vercel.app`;
     resumes[username] = uniqueUrl;
     res.json({ url: uniqueUrl });
 });
