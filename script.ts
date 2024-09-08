@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = name.toLowerCase().replace(/\s+/g, ''); // Example username generation
     
         try {
-            const response = await fetch('http://localhost:3000/api/generate-url', {
+            const response = await fetch('https://resume-builder-2qwij5y0u-muhammad-alis-projects-5543e715.vercel.app', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -14,5 +14,5 @@ app.use(express.json()); // Use built-in express.json() middleware
 app.use('/api', resumeRoutes);
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server running at https://resume-builder-2qwij5y0u-muhammad-alis-projects-5543e715.vercel.app`);
 });
